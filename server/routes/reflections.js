@@ -16,3 +16,9 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
+
+
+/* after test pilot:: 
+add paid tier to view accs and logs: req.user.plan....
+*/
+

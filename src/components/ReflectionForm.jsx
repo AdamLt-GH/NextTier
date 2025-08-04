@@ -15,24 +15,30 @@ const Home = () => {
   }, [chatHistory]);
 
   const sendToChatGPT = async (userMessage) => {
+    console.log("Sending message:", userMessage);
     try {
       const response = await axios.post('http://localhost:5000/api/chatgpt', {
         message: userMessage
       });
-      const aiReply = response.data.reply;
-
+      console.log("AI Response:", response.data);
+  
       setChatHistory(prev => [
         ...prev,
         { sender: 'You', text: userMessage },
-        { sender: 'NextTier AI', text: aiReply }
+        { sender: 'NextTier AI', text: response.data.reply }
       ]);
     } catch (err) {
-      console.error("Error from AI:", err.response?.data || err.message);
+      console.error("Error from AI:", err.response?.data || err.message || err);
     }
   };
+  
 
   const handleSubmit = async () => {
-    if (!input.trim()) return;
+    if (!input.trim()) {
+      console.log("Blocked empty input");
+      return;
+    }
+    console.log("Handling submit...");
     await sendToChatGPT(input);
     setInput('');
   };
@@ -88,9 +94,10 @@ const Home = () => {
         onChange={(e) => setInput(e.target.value)}
       />
 
-      {/* submit arrow */}
       <button
-        className="absolute left-[604px] top-[764px] w-16 h-6 bg-fuchsia-800 rounded-[10px] text-white text-sm"
+        disabled={!input.trim()}
+        className={`absolute left-[604px] top-[764px] w-16 h-6 bg-fuchsia-800 rounded-[10px] text-white text-sm 
+          ${!input.trim() ? 'opacity-50 cursor-not-allowed' : ''}`}
         onClick={handleSubmit}
       >
         ➤

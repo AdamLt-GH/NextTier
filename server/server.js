@@ -3,12 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-const chatRoutes = require('./routes/chat');
+const chatRouter = require('./routes/chat');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-const chatRouter = require('./routes/chat');
 app.use('/api', chatRouter);
 
 
