@@ -8,8 +8,7 @@ function App() {
       <div className="app-header">
         <h1 className="app-title">NextTier</h1>
         <p className="app-description">
-          Your AI-powered assistant for crafting the perfect raise request. 
-          Get personalized guidance and practice with a mock meeting to build your confidence.
+          An AI assistant developed to help craft the perfect raise or promotion request. 
         </p>
       </div>
       <div className="chatbox-container">
